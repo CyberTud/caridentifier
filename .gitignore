@@ -1,0 +1,84 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+*.ipr
+*.iws
+.idea/
+.DS_Store
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/Flutter/ephemeral/
+ios/Runner/GeneratedPluginRegistrant.*
+ios/build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+ios/.generated/
+
+# Android
+android/.gradle/
+android/.idea/
+android/local.properties
+android/**/GeneratedPluginRegistrant.java
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/gradle/
+android/app/debug
+android/app/profile
+android/app/release
+*.jks
+*.keystore
+
+# Node.js backend
+backend/node_modules/
+backend/.env
+backend/.env.local
+backend/.env.production
+backend/dist/
+backend/build/
+backend/logs/
+backend/*.log
+backend/npm-debug.log*
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio Code
+.vscode/
+
+# Coverage
+coverage/
+*.lcov

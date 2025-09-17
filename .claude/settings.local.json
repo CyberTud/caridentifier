@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter pub:*)",
+      "Bash(npm run dev:*)",
+      "Bash(flutter:*)",
+      "Bash(awk:*)",
+      "Bash(pod install:*)",
+      "Bash(open ios/Runner.xcworkspace)",
+      "Bash(ios-deploy:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(pod deintegrate:*)",
+      "Bash(dart run build_runner build:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
