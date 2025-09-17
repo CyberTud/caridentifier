@@ -10,7 +10,8 @@
       "Bash(ios-deploy:*)",
       "Bash(xcodebuild:*)",
       "Bash(pod deintegrate:*)",
-      "Bash(dart run build_runner build:*)"
+      "Bash(dart run build_runner build:*)",
+      "Bash(git remote add:*)"
     ],
     "deny": [],
     "ask": []

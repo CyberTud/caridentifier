@@ -46,6 +46,7 @@ dependencies:
   # Utilities
   path: ^1.8.3
   uuid: ^4.2.1
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -63,3 +64,11 @@ flutter:
   assets:
     - assets/animations/
     - assets/images/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "carid.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "carid.png"
+  remove_alpha_ios: true
