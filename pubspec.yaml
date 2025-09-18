@@ -1,5 +1,5 @@
-name: car_identifier
-description: A polished Flutter app for car identification using LLM Vision
+name: carpeek
+description: Instantly identify any car with AI - snap a photo and discover make, model, year, specs, and market value
 publish_to: 'none'
 version: 1.0.0+1
 

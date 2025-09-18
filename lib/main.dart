@@ -49,7 +49,7 @@ class CarIdentifierApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
-      title: 'Car Identifier',
+      title: 'CarPeek',
       debugShowCheckedModeBanner: false,
       themeMode: settings.themeMode,
       theme: _buildLightTheme(),

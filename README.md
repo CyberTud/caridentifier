@@ -1,6 +1,8 @@
-# Car Identifier 🚗
+# CarPeek 🚗 - AI Car Identifier
 
-A sophisticated Flutter application that uses AI-powered vision technology to identify cars from photos. Simply take a picture of any car, and the app will provide detailed information about the make, model, year, specifications, and price estimates.
+A sophisticated Flutter application that uses AI-powered vision technology to identify cars from photos. Simply take a picture of any car, and CarPeek will provide detailed information about the make, model, year, specifications, and price estimates.
+
+**App Store Ready** - Fully configured for iOS App Store submission with privacy policy, terms of service, and complete metadata.
 
 ## Features
 

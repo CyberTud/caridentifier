@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Car Identifier</string>
+	<string>CarPeek</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>car_identifier</string>
+	<string>CarPeek</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -50,11 +50,11 @@
 
 	<!-- Camera and Photo Library Permissions -->
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs access to camera to take photos of cars for identification.</string>
+	<string>CarPeek needs camera access to capture photos of vehicles for instant AI-powered identification and analysis.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs access to photo library to select car images for identification.</string>
+	<string>CarPeek needs photo library access to let you select vehicle images for identification and analysis.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app needs access to save identified car images to your photo library.</string>
+	<string>CarPeek can save analyzed vehicle images with detailed information to your photo library.</string>
 
 	<!-- Network Configuration -->
 	<key>NSAppTransportSecurity</key>
