@@ -99,12 +99,14 @@ class _RecentsScreenState extends ConsumerState<RecentsScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          // Search bar
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            // Search bar
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: TextField(
               controller: _searchController,
               onChanged: (value) {
                 setState(() {
@@ -169,7 +171,8 @@ class _RecentsScreenState extends ConsumerState<RecentsScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: const AppNavigationBar(currentIndex: 1),
+    ),
+    bottomNavigationBar: const AppNavigationBar(currentIndex: 1),
     );
   }
 

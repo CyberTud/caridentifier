@@ -44,7 +44,7 @@ class _AnalysisScreenState extends ConsumerState<AnalysisScreen>
 
     _imageAnimation = CurvedAnimation(
       parent: _imageController,
-      curve: Curves.easeOutBack,
+      curve: Curves.easeOut, // Changed from easeOutBack to prevent overshooting
     );
     _contentAnimation = CurvedAnimation(
       parent: _contentController,
@@ -165,7 +165,7 @@ class _AnalysisScreenState extends ConsumerState<AnalysisScreen>
                 animation: _imageAnimation,
                 builder: (context, child) {
                   return Transform.scale(
-                    scale: _imageAnimation.value,
+                    scale: _imageAnimation.value.clamp(0.0, 1.0),
                     child: Container(
                       width: 280,
                       height: 280,
@@ -196,7 +196,7 @@ class _AnalysisScreenState extends ConsumerState<AnalysisScreen>
                 animation: _contentAnimation,
                 builder: (context, child) {
                   return Opacity(
-                    opacity: _contentAnimation.value,
+                    opacity: _contentAnimation.value.clamp(0.0, 1.0),
                     child: Transform.translate(
                       offset: Offset(0, 20 * (1 - _contentAnimation.value)),
                       child: Column(

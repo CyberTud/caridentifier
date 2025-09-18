@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,8 +49,8 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
           parent: _staggerController,
           curve: Interval(
             index * 0.1,
-            (index * 0.1) + 0.4,
-            curve: Curves.easeOutBack,
+            math.min((index * 0.1) + 0.4, 1.0),
+            curve: Curves.easeOut, // Changed from easeOutBack to prevent overshooting
           ),
         ),
       );
@@ -190,7 +191,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                       return Transform.translate(
                         offset: Offset(0, 20 * (1 - _staggeredAnimations[0].value)),
                         child: Opacity(
-                          opacity: _staggeredAnimations[0].value,
+                          opacity: _staggeredAnimations[0].value.clamp(0.0, 1.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -270,7 +271,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                       return Transform.translate(
                         offset: Offset(0, 20 * (1 - _staggeredAnimations[1].value)),
                         child: Opacity(
-                          opacity: _staggeredAnimations[1].value,
+                          opacity: _staggeredAnimations[1].value.clamp(0.0, 1.0),
                           child: SpecsCard(keySpecs: widget.analysis.keySpecs),
                         ),
                       );
@@ -284,7 +285,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                       return Transform.translate(
                         offset: Offset(0, 20 * (1 - _staggeredAnimations[2].value)),
                         child: Opacity(
-                          opacity: _staggeredAnimations[2].value,
+                          opacity: _staggeredAnimations[2].value.clamp(0.0, 1.0),
                           child: PriceEstimatesCard(priceEstimates: widget.analysis.priceEstimates),
                         ),
                       );
@@ -299,7 +300,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                         return Transform.translate(
                           offset: Offset(0, 20 * (1 - _staggeredAnimations[3].value)),
                           child: Opacity(
-                            opacity: _staggeredAnimations[3].value,
+                            opacity: _staggeredAnimations[3].value.clamp(0.0, 1.0),
                             child: HistoryTimeline(history: widget.analysis.notableHistory),
                           ),
                         );
@@ -315,7 +316,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                         return Transform.translate(
                           offset: Offset(0, 20 * (1 - _staggeredAnimations[4].value)),
                           child: Opacity(
-                            opacity: _staggeredAnimations[4].value,
+                            opacity: _staggeredAnimations[4].value.clamp(0.0, 1.0),
                             child: MaintenanceTipsCard(tips: widget.analysis.maintenanceTips),
                           ),
                         );
@@ -331,7 +332,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                         return Transform.translate(
                           offset: Offset(0, 20 * (1 - _staggeredAnimations[4].value)),
                           child: Opacity(
-                            opacity: _staggeredAnimations[4].value,
+                            opacity: _staggeredAnimations[4].value.clamp(0.0, 1.0),
                             child: SimilarModelsSection(models: widget.analysis.similarModels),
                           ),
                         );
@@ -346,7 +347,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                       return Transform.translate(
                         offset: Offset(0, 20 * (1 - _staggeredAnimations[5].value)),
                         child: Opacity(
-                          opacity: _staggeredAnimations[5].value,
+                          opacity: _staggeredAnimations[5].value.clamp(0.0, 1.0),
                           child: Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(

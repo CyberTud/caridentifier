@@ -14,22 +14,6 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  final TextEditingController _backendUrlController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final settings = ref.read(settingsProvider);
-      _backendUrlController.text = settings.backendUrl;
-    });
-  }
-
-  @override
-  void dispose() {
-    _backendUrlController.dispose();
-    super.dispose();
-  }
 
   void _showThemeDialog() {
     final settings = ref.read(settingsProvider);
@@ -130,50 +114,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  void _showBackendUrlDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Backend URL'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Enter the URL of your backend server. Use localhost for development.',
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _backendUrlController,
-              decoration: const InputDecoration(
-                hintText: 'http://localhost:3000',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.url,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () {
-              final url = _backendUrlController.text.trim();
-              if (url.isNotEmpty) {
-                ref.read(settingsProvider.notifier).updateBackendUrl(url);
-              }
-              Navigator.of(context).pop();
-            },
-            child: const Text('Save'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _clearAllData() {
+void _clearAllData() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -210,7 +151,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void _showAboutDialog() {
     showAboutDialog(
       context: context,
-      applicationName: 'Car Identifier',
+      applicationName: 'CarPeek',
       applicationVersion: '1.0.0',
       applicationIcon: Icon(
         Icons.directions_car_rounded,
@@ -299,19 +240,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
           ),
           const SizedBox(height: 24),
-          // Backend Section
-          SettingsSection(
-            title: 'Backend',
-            children: [
-              SettingsTile(
-                title: 'Server URL',
-                subtitle: settings.backendUrl,
-                leadingIcon: Icons.dns_rounded,
-                onTap: _showBackendUrlDialog,
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
           // Privacy Section
           SettingsSection(
             title: 'Privacy',
@@ -358,7 +286,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Images are only sent to your configured backend server. No data is shared with third parties without your explicit consent.',
+                  'Your images are processed securely. No data is shared with third parties without your explicit consent.',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: colorScheme.onSurface.withOpacity(0.7),
                   ),
@@ -372,7 +300,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             title: 'About',
             children: [
               SettingsTile(
-                title: 'About Car Identifier',
+                title: 'About CarPeek',
                 subtitle: 'Version 1.0.0',
                 leadingIcon: Icons.info_rounded,
                 onTap: _showAboutDialog,

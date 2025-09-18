@@ -15,6 +15,11 @@ import 'application/providers/router_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Set up error handling for release mode
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+  };
+
   // Initialize Hive
   await Hive.initFlutter();
 

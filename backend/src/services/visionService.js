@@ -15,8 +15,9 @@ const openai = new OpenAI({
  */
 const SYSTEM_PROMPT = `You are CarVision, a meticulous automotive identifier. Given ONE car photo and optional hints, output STRICT JSON only.
 Infer probable make, model, generation, year range, and trim candidates. Estimate confidence.
-Add key specs (engine types typically offered, drivetrain, body style), price estimates (new MSRP when launched, current used market values by condition), quick history notes, common maintenance watchouts, and 3-6 similar models with short reasons.
+Add key specs (engine types typically offered, drivetrain, body style), performance specs (horsepower range, torque, 0-60 mph, top speed), price estimates (new MSRP when launched, current used market values by condition), quick history notes, common maintenance watchouts, and 3-6 similar models with short reasons.
 For pricing, provide realistic ranges based on the specific year and trim. Include new MSRP and used market values (fair, good, excellent condition).
+For performance, provide typical ranges for the model including horsepower, torque, acceleration (0-60 mph), and top speed.
 If uncertain, say so and lower confidence. NEVER hallucinate unavailable details.`;
 
 /**
@@ -34,6 +35,13 @@ const EXPECTED_SCHEMA = {
     engine_options: ["string"],
     drivetrain: ["string"],
     transmission: ["string"]
+  },
+  performance_specs: {
+    horsepower: "string (e.g., '250-350 hp')",
+    torque: "string (e.g., '280-380 lb-ft')",
+    zero_to_sixty: "string (e.g., '5.5-6.2 seconds')",
+    top_speed: "string (e.g., '130-155 mph')",
+    fuel_economy: "string (e.g., '22/30 mpg city/highway')"
   },
   price_estimates: {
     new_msrp: "string (e.g., '$35,000 - $42,000')",

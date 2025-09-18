@@ -128,7 +128,13 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
           ),
         ),
         child: SafeArea(
-          child: Column(
+          child: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height -
+                     MediaQuery.of(context).padding.top -
+                     kToolbarHeight -
+                     kBottomNavigationBarHeight,
+              child: Column(
             children: [
               const SizedBox(height: 40),
               // Hero title section
@@ -243,7 +249,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
               // Hint input field
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 32),
@@ -271,7 +277,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
                   ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 40),
               // Main capture button
               AnimatedBuilder(
                 animation: _floatingButtonAnimation,
@@ -317,11 +323,14 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
                   );
                 },
               ),
-              const SizedBox(height: 40),
+              const Spacer(),
+              const SizedBox(height: 80),
             ],
           ),
         ),
       ),
+    ),
+  ),
       bottomNavigationBar: const AppNavigationBar(currentIndex: 0),
     );
   }
