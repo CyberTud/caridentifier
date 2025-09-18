@@ -11,7 +11,7 @@ class AppSettings {
   const AppSettings({
     this.themeMode = ThemeMode.system,
     this.regionHint,
-    this.backendUrl = 'http://192.168.0.164:3000',
+    this.backendUrl = 'https://caridentifier-rfze.onrender.com',
     this.mockMode = false,
   });
 
@@ -40,7 +40,7 @@ class SettingsNotifier extends StateNotifier<AppSettings> {
   void _loadSettings() {
     final themeModeIndex = _settingsBox.get('themeMode', defaultValue: 0) as int;
     final regionHint = _settingsBox.get('regionHint') as String?;
-    final backendUrl = _settingsBox.get('backendUrl', defaultValue: 'http://192.168.0.164:3000') as String;
+    final backendUrl = _settingsBox.get('backendUrl', defaultValue: 'https://caridentifier-rfze.onrender.com') as String;
     final mockMode = _settingsBox.get('mockMode', defaultValue: false) as bool;
 
     state = AppSettings(
