@@ -16,7 +16,8 @@
       "Bash(git commit:*)",
       "Read(//Users/tudor/Documents/dev/**)",
       "Bash(pkill:*)",
-      "Bash(open Runner.xcworkspace)"
+      "Bash(open Runner.xcworkspace)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
