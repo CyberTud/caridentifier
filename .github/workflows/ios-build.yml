@@ -20,17 +20,26 @@ jobs:
         channel: 'stable'
 
     - name: Install Flutter dependencies
-      run: flutter pub get
+      run: |
+        flutter pub get
+        flutter --version
+
+    - name: Generate iOS configuration
+      run: |
+        flutter build ios --config-only --no-codesign
 
     - name: Install CocoaPods
       run: |
         sudo gem install cocoapods
+        pod --version
 
     - name: Install iOS dependencies
       run: |
         cd ios
+        export FLUTTER_ROOT=$FLUTTER_ROOT
+        echo "FLUTTER_ROOT=$FLUTTER_ROOT"
         pod repo update
-        pod install
+        pod install --verbose
 
     - name: Build iOS
       run: |
