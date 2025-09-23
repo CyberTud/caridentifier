@@ -5,8 +5,8 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class SubscriptionService {
-  static const String _monthlyProductId = 'carpeek_monthly';
-  static const String _yearlyProductId = 'carpeek_yearly';
+  static const String _monthlyProductId = 'com.carpeek.app.monthly';  // Product ID format: bundleID.productName
+  static const String _yearlyProductId = 'com.carpeek.app.yearly';  // TODO: Configure in App Store Connect
   static const String _subscriptionBoxName = 'subscription_data';
   static const String _scanTrackingBoxName = 'scan_tracking';
   static const int _freeScansBeforePaywall = 1;

@@ -14,7 +14,7 @@ class PaywallScreen extends StatefulWidget {
 class _PaywallScreenState extends State<PaywallScreen> {
   final SubscriptionService _subscriptionService = SubscriptionService.instance;
   bool _isLoading = false;
-  String _selectedPlan = 'yearly';
+  String _selectedPlan = 'monthly';  // Default to monthly since only that's configured
 
   @override
   Widget build(BuildContext context) {
@@ -129,21 +129,22 @@ class _PaywallScreenState extends State<PaywallScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        // Yearly plan
-                        _buildPlanOption(
-                          context,
-                          title: 'Yearly',
-                          price: '\$34.99',
-                          period: 'per year',
-                          savings: 'Save 42%',
-                          isSelected: _selectedPlan == 'yearly',
-                          onTap: () {
-                            setState(() {
-                              _selectedPlan = 'yearly';
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 12),
+                        // TODO: Uncomment when yearly subscription is added in App Store Connect
+                        // // Yearly plan
+                        // _buildPlanOption(
+                        //   context,
+                        //   title: 'Yearly',
+                        //   price: '\$34.99',
+                        //   period: 'per year',
+                        //   savings: 'Save 42%',
+                        //   isSelected: _selectedPlan == 'yearly',
+                        //   onTap: () {
+                        //     setState(() {
+                        //       _selectedPlan = 'yearly';
+                        //     });
+                        //   },
+                        // ),
+                        // const SizedBox(height: 12),
                         // Monthly plan
                         _buildPlanOption(
                           context,
@@ -400,11 +401,15 @@ class _PaywallScreenState extends State<PaywallScreen> {
 
     try {
       bool success = false;
-      if (_selectedPlan == 'yearly') {
-        success = await _subscriptionService.purchaseYearlySubscription();
-      } else {
-        success = await _subscriptionService.purchaseMonthlySubscription();
-      }
+      // For now, only monthly is configured
+      success = await _subscriptionService.purchaseMonthlySubscription();
+
+      // TODO: Uncomment when yearly is added
+      // if (_selectedPlan == 'yearly') {
+      //   success = await _subscriptionService.purchaseYearlySubscription();
+      // } else {
+      //   success = await _subscriptionService.purchaseMonthlySubscription();
+      // }
 
       if (success && mounted) {
         Navigator.pop(context, true);
