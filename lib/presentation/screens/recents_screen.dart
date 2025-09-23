@@ -317,7 +317,7 @@ class _RecentsScreenState extends ConsumerState<RecentsScreen> {
         crossAxisCount: 2,
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
-        childAspectRatio: 0.8,
+        childAspectRatio: 0.7,
       ),
       itemCount: analyses.length,
       itemBuilder: (context, index) {
