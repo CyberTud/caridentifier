@@ -37,20 +37,22 @@ mixin _$CarAnalysis {
   @HiveField(7)
   KeySpecs get keySpecs => throw _privateConstructorUsedError;
   @HiveField(8)
-  PriceEstimates get priceEstimates => throw _privateConstructorUsedError;
+  PerformanceSpecs get performanceSpecs => throw _privateConstructorUsedError;
   @HiveField(9)
-  List<String> get notableHistory => throw _privateConstructorUsedError;
+  PriceEstimates get priceEstimates => throw _privateConstructorUsedError;
   @HiveField(10)
-  List<String> get maintenanceTips => throw _privateConstructorUsedError;
+  List<String> get notableHistory => throw _privateConstructorUsedError;
   @HiveField(11)
-  List<SimilarModel> get similarModels => throw _privateConstructorUsedError;
+  List<String> get maintenanceTips => throw _privateConstructorUsedError;
   @HiveField(12)
-  String get disclaimer => throw _privateConstructorUsedError;
+  List<SimilarModel> get similarModels => throw _privateConstructorUsedError;
   @HiveField(13)
-  String get imageLocalPath => throw _privateConstructorUsedError;
+  String get disclaimer => throw _privateConstructorUsedError;
   @HiveField(14)
-  String get id => throw _privateConstructorUsedError;
+  String get imageLocalPath => throw _privateConstructorUsedError;
   @HiveField(15)
+  String get id => throw _privateConstructorUsedError;
+  @HiveField(16)
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -74,16 +76,18 @@ abstract class $CarAnalysisCopyWith<$Res> {
       @HiveField(5) List<TrimCandidate> trimCandidates,
       @HiveField(6) double confidence,
       @HiveField(7) KeySpecs keySpecs,
-      @HiveField(8) PriceEstimates priceEstimates,
-      @HiveField(9) List<String> notableHistory,
-      @HiveField(10) List<String> maintenanceTips,
-      @HiveField(11) List<SimilarModel> similarModels,
-      @HiveField(12) String disclaimer,
-      @HiveField(13) String imageLocalPath,
-      @HiveField(14) String id,
-      @HiveField(15) DateTime createdAt});
+      @HiveField(8) PerformanceSpecs performanceSpecs,
+      @HiveField(9) PriceEstimates priceEstimates,
+      @HiveField(10) List<String> notableHistory,
+      @HiveField(11) List<String> maintenanceTips,
+      @HiveField(12) List<SimilarModel> similarModels,
+      @HiveField(13) String disclaimer,
+      @HiveField(14) String imageLocalPath,
+      @HiveField(15) String id,
+      @HiveField(16) DateTime createdAt});
 
   $KeySpecsCopyWith<$Res> get keySpecs;
+  $PerformanceSpecsCopyWith<$Res> get performanceSpecs;
   $PriceEstimatesCopyWith<$Res> get priceEstimates;
 }
 
@@ -108,6 +112,7 @@ class _$CarAnalysisCopyWithImpl<$Res, $Val extends CarAnalysis>
     Object? trimCandidates = null,
     Object? confidence = null,
     Object? keySpecs = null,
+    Object? performanceSpecs = null,
     Object? priceEstimates = null,
     Object? notableHistory = null,
     Object? maintenanceTips = null,
@@ -150,6 +155,10 @@ class _$CarAnalysisCopyWithImpl<$Res, $Val extends CarAnalysis>
           ? _value.keySpecs
           : keySpecs // ignore: cast_nullable_to_non_nullable
               as KeySpecs,
+      performanceSpecs: null == performanceSpecs
+          ? _value.performanceSpecs
+          : performanceSpecs // ignore: cast_nullable_to_non_nullable
+              as PerformanceSpecs,
       priceEstimates: null == priceEstimates
           ? _value.priceEstimates
           : priceEstimates // ignore: cast_nullable_to_non_nullable
@@ -195,6 +204,14 @@ class _$CarAnalysisCopyWithImpl<$Res, $Val extends CarAnalysis>
 
   @override
   @pragma('vm:prefer-inline')
+  $PerformanceSpecsCopyWith<$Res> get performanceSpecs {
+    return $PerformanceSpecsCopyWith<$Res>(_value.performanceSpecs, (value) {
+      return _then(_value.copyWith(performanceSpecs: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $PriceEstimatesCopyWith<$Res> get priceEstimates {
     return $PriceEstimatesCopyWith<$Res>(_value.priceEstimates, (value) {
       return _then(_value.copyWith(priceEstimates: value) as $Val);
@@ -219,17 +236,20 @@ abstract class _$$CarAnalysisImplCopyWith<$Res>
       @HiveField(5) List<TrimCandidate> trimCandidates,
       @HiveField(6) double confidence,
       @HiveField(7) KeySpecs keySpecs,
-      @HiveField(8) PriceEstimates priceEstimates,
-      @HiveField(9) List<String> notableHistory,
-      @HiveField(10) List<String> maintenanceTips,
-      @HiveField(11) List<SimilarModel> similarModels,
-      @HiveField(12) String disclaimer,
-      @HiveField(13) String imageLocalPath,
-      @HiveField(14) String id,
-      @HiveField(15) DateTime createdAt});
+      @HiveField(8) PerformanceSpecs performanceSpecs,
+      @HiveField(9) PriceEstimates priceEstimates,
+      @HiveField(10) List<String> notableHistory,
+      @HiveField(11) List<String> maintenanceTips,
+      @HiveField(12) List<SimilarModel> similarModels,
+      @HiveField(13) String disclaimer,
+      @HiveField(14) String imageLocalPath,
+      @HiveField(15) String id,
+      @HiveField(16) DateTime createdAt});
 
   @override
   $KeySpecsCopyWith<$Res> get keySpecs;
+  @override
+  $PerformanceSpecsCopyWith<$Res> get performanceSpecs;
   @override
   $PriceEstimatesCopyWith<$Res> get priceEstimates;
 }
@@ -253,6 +273,7 @@ class __$$CarAnalysisImplCopyWithImpl<$Res>
     Object? trimCandidates = null,
     Object? confidence = null,
     Object? keySpecs = null,
+    Object? performanceSpecs = null,
     Object? priceEstimates = null,
     Object? notableHistory = null,
     Object? maintenanceTips = null,
@@ -295,6 +316,10 @@ class __$$CarAnalysisImplCopyWithImpl<$Res>
           ? _value.keySpecs
           : keySpecs // ignore: cast_nullable_to_non_nullable
               as KeySpecs,
+      performanceSpecs: null == performanceSpecs
+          ? _value.performanceSpecs
+          : performanceSpecs // ignore: cast_nullable_to_non_nullable
+              as PerformanceSpecs,
       priceEstimates: null == priceEstimates
           ? _value.priceEstimates
           : priceEstimates // ignore: cast_nullable_to_non_nullable
@@ -343,14 +368,15 @@ class _$CarAnalysisImpl implements _CarAnalysis {
       @HiveField(5) required final List<TrimCandidate> trimCandidates,
       @HiveField(6) required this.confidence,
       @HiveField(7) required this.keySpecs,
-      @HiveField(8) required this.priceEstimates,
-      @HiveField(9) required final List<String> notableHistory,
-      @HiveField(10) required final List<String> maintenanceTips,
-      @HiveField(11) required final List<SimilarModel> similarModels,
-      @HiveField(12) required this.disclaimer,
-      @HiveField(13) required this.imageLocalPath,
-      @HiveField(14) this.id = '',
-      @HiveField(15) required this.createdAt})
+      @HiveField(8) required this.performanceSpecs,
+      @HiveField(9) required this.priceEstimates,
+      @HiveField(10) required final List<String> notableHistory,
+      @HiveField(11) required final List<String> maintenanceTips,
+      @HiveField(12) required final List<SimilarModel> similarModels,
+      @HiveField(13) required this.disclaimer,
+      @HiveField(14) required this.imageLocalPath,
+      @HiveField(15) this.id = '',
+      @HiveField(16) required this.createdAt})
       : _trimCandidates = trimCandidates,
         _notableHistory = notableHistory,
         _maintenanceTips = maintenanceTips,
@@ -391,10 +417,13 @@ class _$CarAnalysisImpl implements _CarAnalysis {
   final KeySpecs keySpecs;
   @override
   @HiveField(8)
+  final PerformanceSpecs performanceSpecs;
+  @override
+  @HiveField(9)
   final PriceEstimates priceEstimates;
   final List<String> _notableHistory;
   @override
-  @HiveField(9)
+  @HiveField(10)
   List<String> get notableHistory {
     if (_notableHistory is EqualUnmodifiableListView) return _notableHistory;
     // ignore: implicit_dynamic_type
@@ -403,7 +432,7 @@ class _$CarAnalysisImpl implements _CarAnalysis {
 
   final List<String> _maintenanceTips;
   @override
-  @HiveField(10)
+  @HiveField(11)
   List<String> get maintenanceTips {
     if (_maintenanceTips is EqualUnmodifiableListView) return _maintenanceTips;
     // ignore: implicit_dynamic_type
@@ -412,7 +441,7 @@ class _$CarAnalysisImpl implements _CarAnalysis {
 
   final List<SimilarModel> _similarModels;
   @override
-  @HiveField(11)
+  @HiveField(12)
   List<SimilarModel> get similarModels {
     if (_similarModels is EqualUnmodifiableListView) return _similarModels;
     // ignore: implicit_dynamic_type
@@ -420,22 +449,22 @@ class _$CarAnalysisImpl implements _CarAnalysis {
   }
 
   @override
-  @HiveField(12)
+  @HiveField(13)
   final String disclaimer;
   @override
-  @HiveField(13)
+  @HiveField(14)
   final String imageLocalPath;
   @override
   @JsonKey()
-  @HiveField(14)
+  @HiveField(15)
   final String id;
   @override
-  @HiveField(15)
+  @HiveField(16)
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'CarAnalysis(make: $make, model: $model, generation: $generation, yearRange: $yearRange, bodyStyle: $bodyStyle, trimCandidates: $trimCandidates, confidence: $confidence, keySpecs: $keySpecs, priceEstimates: $priceEstimates, notableHistory: $notableHistory, maintenanceTips: $maintenanceTips, similarModels: $similarModels, disclaimer: $disclaimer, imageLocalPath: $imageLocalPath, id: $id, createdAt: $createdAt)';
+    return 'CarAnalysis(make: $make, model: $model, generation: $generation, yearRange: $yearRange, bodyStyle: $bodyStyle, trimCandidates: $trimCandidates, confidence: $confidence, keySpecs: $keySpecs, performanceSpecs: $performanceSpecs, priceEstimates: $priceEstimates, notableHistory: $notableHistory, maintenanceTips: $maintenanceTips, similarModels: $similarModels, disclaimer: $disclaimer, imageLocalPath: $imageLocalPath, id: $id, createdAt: $createdAt)';
   }
 
   @override
@@ -457,6 +486,8 @@ class _$CarAnalysisImpl implements _CarAnalysis {
                 other.confidence == confidence) &&
             (identical(other.keySpecs, keySpecs) ||
                 other.keySpecs == keySpecs) &&
+            (identical(other.performanceSpecs, performanceSpecs) ||
+                other.performanceSpecs == performanceSpecs) &&
             (identical(other.priceEstimates, priceEstimates) ||
                 other.priceEstimates == priceEstimates) &&
             const DeepCollectionEquality()
@@ -486,6 +517,7 @@ class _$CarAnalysisImpl implements _CarAnalysis {
       const DeepCollectionEquality().hash(_trimCandidates),
       confidence,
       keySpecs,
+      performanceSpecs,
       priceEstimates,
       const DeepCollectionEquality().hash(_notableHistory),
       const DeepCollectionEquality().hash(_maintenanceTips),
@@ -519,14 +551,15 @@ abstract class _CarAnalysis implements CarAnalysis {
       @HiveField(5) required final List<TrimCandidate> trimCandidates,
       @HiveField(6) required final double confidence,
       @HiveField(7) required final KeySpecs keySpecs,
-      @HiveField(8) required final PriceEstimates priceEstimates,
-      @HiveField(9) required final List<String> notableHistory,
-      @HiveField(10) required final List<String> maintenanceTips,
-      @HiveField(11) required final List<SimilarModel> similarModels,
-      @HiveField(12) required final String disclaimer,
-      @HiveField(13) required final String imageLocalPath,
-      @HiveField(14) final String id,
-      @HiveField(15) required final DateTime createdAt}) = _$CarAnalysisImpl;
+      @HiveField(8) required final PerformanceSpecs performanceSpecs,
+      @HiveField(9) required final PriceEstimates priceEstimates,
+      @HiveField(10) required final List<String> notableHistory,
+      @HiveField(11) required final List<String> maintenanceTips,
+      @HiveField(12) required final List<SimilarModel> similarModels,
+      @HiveField(13) required final String disclaimer,
+      @HiveField(14) required final String imageLocalPath,
+      @HiveField(15) final String id,
+      @HiveField(16) required final DateTime createdAt}) = _$CarAnalysisImpl;
 
   factory _CarAnalysis.fromJson(Map<String, dynamic> json) =
       _$CarAnalysisImpl.fromJson;
@@ -557,27 +590,30 @@ abstract class _CarAnalysis implements CarAnalysis {
   KeySpecs get keySpecs;
   @override
   @HiveField(8)
-  PriceEstimates get priceEstimates;
+  PerformanceSpecs get performanceSpecs;
   @override
   @HiveField(9)
-  List<String> get notableHistory;
+  PriceEstimates get priceEstimates;
   @override
   @HiveField(10)
-  List<String> get maintenanceTips;
+  List<String> get notableHistory;
   @override
   @HiveField(11)
-  List<SimilarModel> get similarModels;
+  List<String> get maintenanceTips;
   @override
   @HiveField(12)
-  String get disclaimer;
+  List<SimilarModel> get similarModels;
   @override
   @HiveField(13)
-  String get imageLocalPath;
+  String get disclaimer;
   @override
   @HiveField(14)
-  String get id;
+  String get imageLocalPath;
   @override
   @HiveField(15)
+  String get id;
+  @override
+  @HiveField(16)
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)

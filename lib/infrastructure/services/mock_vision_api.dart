@@ -4,6 +4,7 @@ import '../../domain/entities/car_analysis.dart';
 import '../../domain/entities/trim_candidate.dart';
 import '../../domain/entities/key_specs.dart';
 import '../../domain/entities/price_estimates.dart';
+import '../../domain/entities/performance_specs.dart';
 import '../../domain/entities/similar_model.dart';
 import 'vision_api.dart';
 
@@ -45,6 +46,13 @@ class MockVisionApi implements VisionApi {
         engineOptions: ['2.5L 4-cylinder', '3.5L V6'],
         drivetrain: ['FWD'],
         transmission: ['8-speed automatic'],
+      ),
+      performanceSpecs: const PerformanceSpecs(
+        horsepower: '203-301 hp',
+        torque: '184-267 lb-ft',
+        zeroToSixty: '5.1-7.6 seconds',
+        topSpeed: '133-143 mph',
+        fuelEconomy: '28/39 mpg city/highway',
       ),
       priceEstimates: const PriceEstimates(
         newMsrp: r'$26,000 - $36,000',
@@ -94,6 +102,13 @@ class MockVisionApi implements VisionApi {
         drivetrain: ['RWD', 'AWD (xDrive)'],
         transmission: ['8-speed automatic'],
       ),
+      performanceSpecs: const PerformanceSpecs(
+        horsepower: '255-382 hp',
+        torque: '295-369 lb-ft',
+        zeroToSixty: '4.4-5.9 seconds',
+        topSpeed: '130-155 mph',
+        fuelEconomy: '25/34 mpg city/highway',
+      ),
       priceEstimates: const PriceEstimates(
         newMsrp: r'$42,000 - $57,000',
         usedFair: r'$28,000 - $42,000',
@@ -142,6 +157,13 @@ class MockVisionApi implements VisionApi {
         drivetrain: ['FWD'],
         transmission: ['CVT', '6-speed manual'],
       ),
+      performanceSpecs: const PerformanceSpecs(
+        horsepower: '158-180 hp',
+        torque: '138-177 lb-ft',
+        zeroToSixty: '7.3-8.2 seconds',
+        topSpeed: '125-137 mph',
+        fuelEconomy: '31/40 mpg city/highway',
+      ),
       priceEstimates: const PriceEstimates(
         newMsrp: r'$24,000 - $31,000',
         usedFair: r'$20,000 - $26,000',
@@ -189,6 +211,13 @@ class MockVisionApi implements VisionApi {
         engineOptions: ['2.3L turbo 4-cylinder', '5.0L V8'],
         drivetrain: ['RWD'],
         transmission: ['6-speed manual', '10-speed automatic'],
+      ),
+      performanceSpecs: const PerformanceSpecs(
+        horsepower: '310-480 hp',
+        torque: '350-420 lb-ft',
+        zeroToSixty: '3.9-5.1 seconds',
+        topSpeed: '155-180 mph',
+        fuelEconomy: '21/31 mpg city/highway',
       ),
       priceEstimates: const PriceEstimates(
         newMsrp: r'$28,000 - $75,000',

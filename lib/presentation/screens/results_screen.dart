@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../domain/entities/car_analysis.dart';
 import '../widgets/confidence_chip.dart';
 import '../widgets/specs_card.dart';
+import '../widgets/performance_specs_card.dart';
 import '../widgets/price_estimates_card.dart';
 import '../widgets/history_timeline.dart';
 import '../widgets/maintenance_tips_card.dart';
@@ -43,7 +44,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
     );
 
     // Create staggered animations for each section
-    _staggeredAnimations = List.generate(6, (index) {
+    _staggeredAnimations = List.generate(7, (index) {
       return Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
           parent: _staggerController,
@@ -180,7 +181,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
           // Content
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.06),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -278,7 +279,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                     },
                   ),
                   const SizedBox(height: 24),
-                  // Price estimates
+                  // Performance specs
                   AnimatedBuilder(
                     animation: _staggeredAnimations[2],
                     builder: (context, child) {
@@ -286,6 +287,20 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                         offset: Offset(0, 20 * (1 - _staggeredAnimations[2].value)),
                         child: Opacity(
                           opacity: _staggeredAnimations[2].value.clamp(0.0, 1.0),
+                          child: PerformanceSpecsCard(performanceSpecs: widget.analysis.performanceSpecs),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  // Price estimates
+                  AnimatedBuilder(
+                    animation: _staggeredAnimations[3],
+                    builder: (context, child) {
+                      return Transform.translate(
+                        offset: Offset(0, 20 * (1 - _staggeredAnimations[3].value)),
+                        child: Opacity(
+                          opacity: _staggeredAnimations[3].value.clamp(0.0, 1.0),
                           child: PriceEstimatesCard(priceEstimates: widget.analysis.priceEstimates),
                         ),
                       );
@@ -295,12 +310,12 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                   // Notable history
                   if (widget.analysis.notableHistory.isNotEmpty) ...[
                     AnimatedBuilder(
-                      animation: _staggeredAnimations[3],
+                      animation: _staggeredAnimations[4],
                       builder: (context, child) {
                         return Transform.translate(
-                          offset: Offset(0, 20 * (1 - _staggeredAnimations[3].value)),
+                          offset: Offset(0, 20 * (1 - _staggeredAnimations[4].value)),
                           child: Opacity(
-                            opacity: _staggeredAnimations[3].value.clamp(0.0, 1.0),
+                            opacity: _staggeredAnimations[4].value.clamp(0.0, 1.0),
                             child: HistoryTimeline(history: widget.analysis.notableHistory),
                           ),
                         );
@@ -311,12 +326,12 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                   // Maintenance tips
                   if (widget.analysis.maintenanceTips.isNotEmpty) ...[
                     AnimatedBuilder(
-                      animation: _staggeredAnimations[4],
+                      animation: _staggeredAnimations[5],
                       builder: (context, child) {
                         return Transform.translate(
-                          offset: Offset(0, 20 * (1 - _staggeredAnimations[4].value)),
+                          offset: Offset(0, 20 * (1 - _staggeredAnimations[5].value)),
                           child: Opacity(
-                            opacity: _staggeredAnimations[4].value.clamp(0.0, 1.0),
+                            opacity: _staggeredAnimations[5].value.clamp(0.0, 1.0),
                             child: MaintenanceTipsCard(tips: widget.analysis.maintenanceTips),
                           ),
                         );
@@ -327,12 +342,12 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                   // Similar models
                   if (widget.analysis.similarModels.isNotEmpty) ...[
                     AnimatedBuilder(
-                      animation: _staggeredAnimations[4],
+                      animation: _staggeredAnimations[5],
                       builder: (context, child) {
                         return Transform.translate(
-                          offset: Offset(0, 20 * (1 - _staggeredAnimations[4].value)),
+                          offset: Offset(0, 20 * (1 - _staggeredAnimations[5].value)),
                           child: Opacity(
-                            opacity: _staggeredAnimations[4].value.clamp(0.0, 1.0),
+                            opacity: _staggeredAnimations[5].value.clamp(0.0, 1.0),
                             child: SimilarModelsSection(models: widget.analysis.similarModels),
                           ),
                         );
@@ -342,12 +357,12 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                   ],
                   // Disclaimer
                   AnimatedBuilder(
-                    animation: _staggeredAnimations[5],
+                    animation: _staggeredAnimations[6],
                     builder: (context, child) {
                       return Transform.translate(
-                        offset: Offset(0, 20 * (1 - _staggeredAnimations[5].value)),
+                        offset: Offset(0, 20 * (1 - _staggeredAnimations[6].value)),
                         child: Opacity(
-                          opacity: _staggeredAnimations[5].value.clamp(0.0, 1.0),
+                          opacity: _staggeredAnimations[6].value.clamp(0.0, 1.0),
                           child: Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
@@ -380,7 +395,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen>
                       );
                     },
                   ),
-                  const SizedBox(height: 100), // Bottom padding for FAB
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.12), // Bottom padding for FAB
                 ],
               ),
             ),

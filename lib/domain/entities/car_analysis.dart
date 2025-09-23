@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'trim_candidate.dart';
 import 'key_specs.dart';
 import 'price_estimates.dart';
+import 'performance_specs.dart';
 import 'similar_model.dart';
 
 part 'car_analysis.freezed.dart';
@@ -20,14 +21,15 @@ class CarAnalysis with _$CarAnalysis {
     @HiveField(5) required List<TrimCandidate> trimCandidates,
     @HiveField(6) required double confidence,
     @HiveField(7) required KeySpecs keySpecs,
-    @HiveField(8) required PriceEstimates priceEstimates,
-    @HiveField(9) required List<String> notableHistory,
-    @HiveField(10) required List<String> maintenanceTips,
-    @HiveField(11) required List<SimilarModel> similarModels,
-    @HiveField(12) required String disclaimer,
-    @HiveField(13) required String imageLocalPath,
-    @HiveField(14) @Default('') String id,
-    @HiveField(15) required DateTime createdAt,
+    @HiveField(8) required PerformanceSpecs performanceSpecs,
+    @HiveField(9) required PriceEstimates priceEstimates,
+    @HiveField(10) required List<String> notableHistory,
+    @HiveField(11) required List<String> maintenanceTips,
+    @HiveField(12) required List<SimilarModel> similarModels,
+    @HiveField(13) required String disclaimer,
+    @HiveField(14) required String imageLocalPath,
+    @HiveField(15) @Default('') String id,
+    @HiveField(16) required DateTime createdAt,
   }) = _CarAnalysis;
 
   factory CarAnalysis.fromJson(Map<String, dynamic> json) =>

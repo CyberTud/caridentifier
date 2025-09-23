@@ -56,6 +56,15 @@ class OpenAIVisionApi implements VisionApi {
         analysisData['imageLocalPath'] = image.path;
         analysisData['id'] = analysisData['id'] ?? DateTime.now().millisecondsSinceEpoch.toString();
         analysisData['createdAt'] = analysisData['createdAt'] ?? DateTime.now().toIso8601String();
+        analysisData['disclaimer'] = analysisData['disclaimer'] ?? 'Analysis based on visual identification. Verify specific details.';
+
+        // Ensure all required string fields are not null
+        analysisData['make'] = analysisData['make'] ?? 'Unknown Make';
+        analysisData['model'] = analysisData['model'] ?? 'Unknown Model';
+        analysisData['generation'] = analysisData['generation']; // Can be null
+        analysisData['year_range'] = analysisData['year_range'] ?? 'Unknown Year';
+        analysisData['body_style'] = analysisData['body_style'] ?? 'Unknown Style';
+        analysisData['confidence'] = analysisData['confidence'] ?? 0.5;
 
         // Safely handle array fields with null checking
         final trimCandidates = analysisData['trim_candidates'];
@@ -71,12 +80,8 @@ class OpenAIVisionApi implements VisionApi {
         analysisData['similar_models'] = (similarModels is List) ? similarModels : [];
 
         // Fix the key naming differences between snake_case and camelCase
-        if (analysisData['year_range'] != null) {
-          analysisData['yearRange'] = analysisData['year_range'];
-        }
-        if (analysisData['body_style'] != null) {
-          analysisData['bodyStyle'] = analysisData['body_style'];
-        }
+        analysisData['yearRange'] = analysisData['year_range'];
+        analysisData['bodyStyle'] = analysisData['body_style'];
 
         // Use the already safe arrays
         analysisData['trimCandidates'] = analysisData['trim_candidates'];
@@ -107,6 +112,29 @@ class OpenAIVisionApi implements VisionApi {
           };
         }
 
+        // Handle performance_specs conversion
+        if (analysisData['performance_specs'] != null && analysisData['performance_specs'] is Map) {
+          final performanceSpecs = analysisData['performance_specs'] as Map<String, dynamic>;
+
+          // Keep snake_case for fields that have @JsonKey annotations
+          analysisData['performanceSpecs'] = {
+            'horsepower': performanceSpecs['horsepower'] ?? 'Data unavailable',
+            'torque': performanceSpecs['torque'] ?? 'Data unavailable',
+            'zero_to_sixty': performanceSpecs['zero_to_sixty'] ?? 'Data unavailable',
+            'top_speed': performanceSpecs['top_speed'] ?? 'Data unavailable',
+            'fuel_economy': performanceSpecs['fuel_economy'] ?? 'Data unavailable',
+          };
+        } else {
+          // Provide default performanceSpecs if missing (use snake_case)
+          analysisData['performanceSpecs'] = {
+            'horsepower': 'Data unavailable',
+            'torque': 'Data unavailable',
+            'zero_to_sixty': 'Data unavailable',
+            'top_speed': 'Data unavailable',
+            'fuel_economy': 'Data unavailable',
+          };
+        }
+
         // Handle price_estimates conversion
         if (analysisData['price_estimates'] != null) {
           final priceEstimates = analysisData['price_estimates'] as Map<String, dynamic>;
@@ -132,7 +160,14 @@ class OpenAIVisionApi implements VisionApi {
 
         print('DEBUG: About to parse CarAnalysis with data: ${analysisData.keys}');
 
-        return CarAnalysis.fromJson(analysisData);
+        try {
+          return CarAnalysis.fromJson(analysisData);
+        } catch (e, stackTrace) {
+          print('ERROR: Failed to parse CarAnalysis: $e');
+          print('Stack trace: $stackTrace');
+          print('Analysis data: $analysisData');
+          throw VisionApiException('Failed to parse analysis result: $e');
+        }
       } else {
         throw VisionApiException('Analysis failed: ${response.statusMessage}');
       }

@@ -13,7 +13,10 @@
       "Bash(dart run build_runner build:*)",
       "Bash(git remote add:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Read(//Users/tudor/Documents/dev/**)",
+      "Bash(pkill:*)",
+      "Bash(open Runner.xcworkspace)"
     ],
     "deny": [],
     "ask": []

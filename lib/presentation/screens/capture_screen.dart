@@ -7,6 +7,8 @@ import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 import '../widgets/camera_view.dart';
 import '../widgets/app_navigation_bar.dart';
+import '../widgets/paywall_screen.dart';
+import '../../infrastructure/services/subscription_service.dart';
 
 class CaptureScreen extends ConsumerStatefulWidget {
   const CaptureScreen({super.key});
@@ -19,9 +21,11 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
     with TickerProviderStateMixin {
   final TextEditingController _hintController = TextEditingController();
   final ImagePicker _imagePicker = ImagePicker();
+  final SubscriptionService _subscriptionService = SubscriptionService.instance;
   bool _isGalleryMode = false;
   late AnimationController _floatingButtonController;
   late Animation<double> _floatingButtonAnimation;
+  bool _hasScannedOnce = false;
 
   @override
   void initState() {
@@ -37,6 +41,17 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
       parent: _floatingButtonController,
       curve: Curves.easeInOut,
     ));
+    _updateScanStatus();
+  }
+
+  Future<void> _updateScanStatus() async {
+    final totalScans = await _subscriptionService.getTotalScans();
+
+    if (mounted) {
+      setState(() {
+        _hasScannedOnce = totalScans > 0;
+      });
+    }
   }
 
   @override
@@ -51,6 +66,26 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
     _floatingButtonController.forward().then((_) {
       _floatingButtonController.reverse();
     });
+
+    // Check if user can scan
+    final subscriptionService = SubscriptionService.instance;
+    final canScan = await subscriptionService.canScan();
+
+    if (!canScan && mounted) {
+      // Show paywall
+      final result = await Navigator.push<bool>(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const PaywallScreen(),
+          fullscreenDialog: true,
+        ),
+      );
+
+      // If user didn't subscribe, return
+      if (result != true) {
+        return;
+      }
+    }
 
     try {
       XFile? image;
@@ -72,10 +107,16 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
       }
 
       if (image != null && mounted) {
+        // Record the scan
+        await subscriptionService.recordScan();
+
         final hint = _hintController.text.trim();
         context.push(
           '/analysis?imagePath=${Uri.encodeComponent(image.path)}${hint.isNotEmpty ? '&hint=${Uri.encodeComponent(hint)}' : ''}',
         );
+
+        // Update scan status after navigation
+        _updateScanStatus();
       }
     } catch (e) {
       if (mounted) {
@@ -139,7 +180,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
               const SizedBox(height: 40),
               // Hero title section
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08),
                 child: Column(
                   children: [
                     Text(
@@ -164,7 +205,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
               const SizedBox(height: 40),
               // Camera/Gallery toggle
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 32),
+                margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08),
                 decoration: BoxDecoration(
                   color: colorScheme.surfaceVariant.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(20),
@@ -252,7 +293,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
               const SizedBox(height: 24),
               // Hint input field
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 32),
+                margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08),
                 child: TextField(
                   controller: _hintController,
                   decoration: InputDecoration(
@@ -277,7 +318,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const Spacer(),
               // Main capture button
               AnimatedBuilder(
                 animation: _floatingButtonAnimation,
@@ -285,8 +326,8 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
                   return Transform.scale(
                     scale: _floatingButtonAnimation.value,
                     child: Container(
-                      width: 120,
-                      height: 120,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      height: MediaQuery.of(context).size.width * 0.3,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
@@ -323,8 +364,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen>
                   );
                 },
               ),
-              const Spacer(),
-              const SizedBox(height: 80),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
             ],
           ),
         ),

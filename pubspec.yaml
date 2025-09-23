@@ -48,6 +48,9 @@ dependencies:
   uuid: ^4.2.1
   flutter_launcher_icons: ^0.14.4
 
+  # In-app purchases
+  in_app_purchase: ^3.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

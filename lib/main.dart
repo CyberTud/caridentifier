@@ -7,10 +7,12 @@ import 'domain/entities/car_analysis.dart';
 import 'domain/entities/trim_candidate.dart';
 import 'domain/entities/key_specs.dart';
 import 'domain/entities/price_estimates.dart';
+import 'domain/entities/performance_specs.dart';
 import 'domain/entities/similar_model.dart';
 import 'application/providers/settings_provider.dart';
 import 'application/providers/repository_providers.dart';
 import 'application/providers/router_provider.dart';
+import 'infrastructure/services/subscription_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,11 +30,15 @@ void main() async {
   Hive.registerAdapter(TrimCandidateAdapter());
   Hive.registerAdapter(KeySpecsAdapter());
   Hive.registerAdapter(PriceEstimatesAdapter());
+  Hive.registerAdapter(PerformanceSpecsAdapter());
   Hive.registerAdapter(SimilarModelAdapter());
 
   // Open Hive boxes
   final analysisBox = await Hive.openBox<CarAnalysis>('analyses');
   final settingsBox = await Hive.openBox('settings');
+
+  // Initialize subscription service
+  await SubscriptionService.instance.initialize();
 
   runApp(
     ProviderScope(

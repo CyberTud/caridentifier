@@ -25,21 +25,22 @@ class CarAnalysisAdapter extends TypeAdapter<CarAnalysis> {
       trimCandidates: (fields[5] as List).cast<TrimCandidate>(),
       confidence: fields[6] as double,
       keySpecs: fields[7] as KeySpecs,
-      priceEstimates: fields[8] as PriceEstimates,
-      notableHistory: (fields[9] as List).cast<String>(),
-      maintenanceTips: (fields[10] as List).cast<String>(),
-      similarModels: (fields[11] as List).cast<SimilarModel>(),
-      disclaimer: fields[12] as String,
-      imageLocalPath: fields[13] as String,
-      id: fields[14] as String,
-      createdAt: fields[15] as DateTime,
+      performanceSpecs: fields[8] as PerformanceSpecs,
+      priceEstimates: fields[9] as PriceEstimates,
+      notableHistory: (fields[10] as List).cast<String>(),
+      maintenanceTips: (fields[11] as List).cast<String>(),
+      similarModels: (fields[12] as List).cast<SimilarModel>(),
+      disclaimer: fields[13] as String,
+      imageLocalPath: fields[14] as String,
+      id: fields[15] as String,
+      createdAt: fields[16] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, CarAnalysis obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.make)
       ..writeByte(1)
@@ -57,20 +58,22 @@ class CarAnalysisAdapter extends TypeAdapter<CarAnalysis> {
       ..writeByte(7)
       ..write(obj.keySpecs)
       ..writeByte(8)
-      ..write(obj.priceEstimates)
+      ..write(obj.performanceSpecs)
       ..writeByte(9)
-      ..write(obj.notableHistory)
+      ..write(obj.priceEstimates)
       ..writeByte(10)
-      ..write(obj.maintenanceTips)
+      ..write(obj.notableHistory)
       ..writeByte(11)
-      ..write(obj.similarModels)
+      ..write(obj.maintenanceTips)
       ..writeByte(12)
-      ..write(obj.disclaimer)
+      ..write(obj.similarModels)
       ..writeByte(13)
-      ..write(obj.imageLocalPath)
+      ..write(obj.disclaimer)
       ..writeByte(14)
-      ..write(obj.id)
+      ..write(obj.imageLocalPath)
       ..writeByte(15)
+      ..write(obj.id)
+      ..writeByte(16)
       ..write(obj.createdAt);
   }
 
@@ -101,6 +104,8 @@ _$CarAnalysisImpl _$$CarAnalysisImplFromJson(Map<String, dynamic> json) =>
           .toList(),
       confidence: (json['confidence'] as num).toDouble(),
       keySpecs: KeySpecs.fromJson(json['keySpecs'] as Map<String, dynamic>),
+      performanceSpecs: PerformanceSpecs.fromJson(
+          json['performanceSpecs'] as Map<String, dynamic>),
       priceEstimates: PriceEstimates.fromJson(
           json['priceEstimates'] as Map<String, dynamic>),
       notableHistory: (json['notableHistory'] as List<dynamic>)
@@ -128,6 +133,7 @@ Map<String, dynamic> _$$CarAnalysisImplToJson(_$CarAnalysisImpl instance) =>
       'trimCandidates': instance.trimCandidates,
       'confidence': instance.confidence,
       'keySpecs': instance.keySpecs,
+      'performanceSpecs': instance.performanceSpecs,
       'priceEstimates': instance.priceEstimates,
       'notableHistory': instance.notableHistory,
       'maintenanceTips': instance.maintenanceTips,
