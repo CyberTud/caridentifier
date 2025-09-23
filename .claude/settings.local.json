@@ -17,7 +17,8 @@
       "Read(//Users/tudor/Documents/dev/**)",
       "Bash(pkill:*)",
       "Bash(open Runner.xcworkspace)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": []
