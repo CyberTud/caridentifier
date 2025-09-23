@@ -27,6 +27,8 @@ class SubscriptionService {
   static final SubscriptionService instance = SubscriptionService._();
 
   Future<void> initialize() async {
+    debugPrint('🚀 Initializing SubscriptionService...');
+
     // Initialize Hive boxes
     _subscriptionBox = await Hive.openBox(_subscriptionBoxName);
     _scanBox = await Hive.openBox(_scanTrackingBoxName);
@@ -34,9 +36,15 @@ class SubscriptionService {
     // Check if in-app purchases are available
     final bool available = await _inAppPurchase.isAvailable();
     if (!available) {
-      debugPrint('In-app purchases not available');
+      debugPrint('❌ In-app purchases not available on this device');
+      debugPrint('   Check that:');
+      debugPrint('   1. Device is not jailbroken');
+      debugPrint('   2. App Store is accessible');
+      debugPrint('   3. Parental controls allow purchases');
       return;
     }
+
+    debugPrint('✅ In-app purchases are available');
 
     // Load products
     await _loadProducts();
@@ -61,20 +69,43 @@ class SubscriptionService {
 
   Future<void> _loadProducts() async {
     const Set<String> _kIds = <String>{_monthlyProductId, _yearlyProductId};
+    debugPrint('🔍 Attempting to load products with IDs: $_kIds');
+
     final ProductDetailsResponse response = await _inAppPurchase.queryProductDetails(_kIds);
 
     if (response.error != null) {
-      debugPrint('Error loading products: ${response.error}');
+      debugPrint('❌ Error loading products: ${response.error}');
+      debugPrint('Error details: ${response.error?.message}');
+      debugPrint('Error code: ${response.error?.code}');
       return;
     }
 
+    debugPrint('📦 Response received. Products found: ${response.productDetails.length}');
+    debugPrint('Not found IDs: ${response.notFoundIDs}');
+
+    if (response.notFoundIDs.isNotEmpty) {
+      debugPrint('⚠️ These product IDs were not found in App Store Connect:');
+      for (final id in response.notFoundIDs) {
+        debugPrint('  - $id');
+      }
+    }
+
     if (response.productDetails.isEmpty) {
-      debugPrint('Products not found');
+      debugPrint('❌ No products found. Check that:');
+      debugPrint('  1. Products are created in App Store Connect');
+      debugPrint('  2. Products are in "Ready to Submit" or "Approved" state');
+      debugPrint('  3. Bundle ID matches: com.carpeek.app');
+      debugPrint('  4. Product IDs match exactly: $_kIds');
       return;
     }
 
     _products = response.productDetails;
-    debugPrint('Loaded ${_products.length} products');
+    debugPrint('✅ Successfully loaded ${_products.length} products:');
+    for (final product in _products) {
+      debugPrint('  - ID: ${product.id}');
+      debugPrint('    Title: ${product.title}');
+      debugPrint('    Price: ${product.price}');
+    }
   }
 
   void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
@@ -229,19 +260,41 @@ class SubscriptionService {
 
   // Purchase methods
   Future<bool> purchaseMonthlySubscription() async {
+    debugPrint('🛒 Starting monthly subscription purchase...');
+
     if (_products.isEmpty) {
+      debugPrint('📦 No products loaded, attempting to load...');
       await _loadProducts();
     }
 
-    final ProductDetails? monthlyProduct = _products.firstWhere(
-      (product) => product.id == _monthlyProductId,
-      orElse: () => _products.first,
-    );
-
-    if (monthlyProduct == null) {
-      debugPrint('Monthly product not found');
+    if (_products.isEmpty) {
+      debugPrint('❌ Still no products after loading attempt');
+      debugPrint('   Make sure product ID "$_monthlyProductId" is configured in App Store Connect');
       return false;
     }
+
+    debugPrint('🔍 Looking for monthly product with ID: $_monthlyProductId');
+    debugPrint('   Available products: ${_products.map((p) => p.id).toList()}');
+
+    ProductDetails? monthlyProduct;
+    try {
+      monthlyProduct = _products.firstWhere(
+        (product) => product.id == _monthlyProductId,
+      );
+    } catch (e) {
+      debugPrint('⚠️ Monthly product not found in loaded products');
+      if (_products.isNotEmpty) {
+        debugPrint('   Using first available product as fallback: ${_products.first.id}');
+        monthlyProduct = _products.first;
+      }
+    }
+
+    if (monthlyProduct == null) {
+      debugPrint('❌ No monthly product available');
+      return false;
+    }
+
+    debugPrint('✅ Found product: ${monthlyProduct.id} - ${monthlyProduct.title}');
 
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: monthlyProduct);
 
@@ -287,11 +340,20 @@ class SubscriptionService {
   }
 
   ProductDetails? getMonthlyProduct() {
-    if (_products.isEmpty) return null;
-    return _products.firstWhere(
-      (product) => product.id == _monthlyProductId,
-      orElse: () => _products.first,
-    );
+    debugPrint('📱 Getting monthly product. Available products: ${_products.length}');
+    if (_products.isEmpty) {
+      debugPrint('⚠️ No products available');
+      return null;
+    }
+
+    try {
+      final product = _products.firstWhere((product) => product.id == _monthlyProductId);
+      debugPrint('✅ Found monthly product: ${product.id}');
+      return product;
+    } catch (e) {
+      debugPrint('⚠️ Monthly product not found, using first available');
+      return _products.first;
+    }
   }
 
   ProductDetails? getYearlyProduct() {
