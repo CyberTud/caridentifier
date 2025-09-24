@@ -217,7 +217,7 @@ class _PaywallScreenState extends State<PaywallScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: () => _openUrl('https://carpeek.app/terms'),
+                              onTap: () => _openUrl('https://carpeek.carrd.co'),
                               child: Text(
                                 'Terms of Use',
                                 style: theme.textTheme.bodySmall?.copyWith(
@@ -236,7 +236,7 @@ class _PaywallScreenState extends State<PaywallScreen> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () => _openUrl('https://carpeek.app/privacy'),
+                              onTap: () => _openUrl('https://carpeek-policy.carrd.co'),
                               child: Text(
                                 'Privacy Policy',
                                 style: theme.textTheme.bodySmall?.copyWith(

@@ -6,7 +6,7 @@
 Add the following line to your app description:
 
 ```
-Terms of Use: https://carpeek.app/terms
+Terms of Use: https://carpeek.carrd.co
 ```
 
 ### 2. Custom EULA (if using custom Terms)
@@ -15,11 +15,11 @@ In App Store Connect:
 2. Navigate to "App Information"
 3. Scroll to "License Agreement"
 4. Select "Custom License Agreement"
-5. Enter your Terms of Use URL: `https://carpeek.app/terms`
+5. Enter your Terms of Use URL: `https://carpeek.carrd.co`
 
 ### 3. Privacy Policy URL
 Ensure this is set in App Store Connect:
-- Privacy Policy URL: `https://carpeek.app/privacy`
+- Privacy Policy URL: `https://carpeek-policy.carrd.co`
 
 ### 4. Subscription Information Display
 The app now displays (in PaywallScreen):
@@ -31,9 +31,9 @@ The app now displays (in PaywallScreen):
 - ✅ Auto-renewal notice: "Subscriptions auto-renew. Cancel anytime in Settings."
 
 ### 5. Website Hosting Requirements
-You need to host these pages on your website:
-- `https://carpeek.app/terms` - Terms of Use
-- `https://carpeek.app/privacy` - Privacy Policy
+✅ Already hosted on Carrd:
+- `https://carpeek.carrd.co` - Terms of Use
+- `https://carpeek-policy.carrd.co` - Privacy Policy
 
 ### 6. App Binary Updates Completed
 The following changes have been made to the app:
@@ -43,13 +43,13 @@ The following changes have been made to the app:
 
 ## Next Steps for Submission
 
-1. **Host the Legal Documents**
-   - Upload the Terms of Use to your website at `/terms`
-   - Upload the Privacy Policy to your website at `/privacy`
+1. **✅ Legal Documents Already Hosted**
+   - Terms of Use: https://carpeek.carrd.co
+   - Privacy Policy: https://carpeek-policy.carrd.co
 
 2. **Update App Store Connect**
-   - Add Terms of Use URL to app description
-   - Ensure Privacy Policy URL is set
+   - Add `Terms of Use: https://carpeek.carrd.co` to app description
+   - Set Privacy Policy URL to `https://carpeek-policy.carrd.co`
    - Consider using Custom EULA if needed
 
 3. **Build and Upload New Version**
@@ -66,10 +66,10 @@ The following changes have been made to the app:
    - All subscription information is clearly displayed
 
 ## Testing Checklist
-- [ ] Terms of Use link works in the app
-- [ ] Privacy Policy link works in the app
+- [ ] Terms of Use link works in the app (https://carpeek.carrd.co)
+- [ ] Privacy Policy link works in the app (https://carpeek-policy.carrd.co)
 - [ ] Subscription price is displayed ($4.99/month)
 - [ ] Subscription duration is displayed (Monthly)
 - [ ] Auto-renewal notice is displayed
-- [ ] Terms of Use is hosted at https://carpeek.app/terms
-- [ ] Privacy Policy is hosted at https://carpeek.app/privacy
+- [ ] Terms of Use is accessible at https://carpeek.carrd.co
+- [ ] Privacy Policy is accessible at https://carpeek-policy.carrd.co
