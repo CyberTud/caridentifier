@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../infrastructure/services/subscription_service.dart';
 
 class PaywallScreen extends StatefulWidget {
@@ -209,6 +210,42 @@ class _PaywallScreenState extends State<PaywallScreen> {
                             color: colorScheme.onSurface.withOpacity(0.5),
                           ),
                           textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 12),
+                        // Legal links
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () => _openUrl('https://carpeek.app/terms'),
+                              child: Text(
+                                'Terms of Use',
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: colorScheme.primary,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                                '•',
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: colorScheme.onSurface.withOpacity(0.5),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () => _openUrl('https://carpeek.app/privacy'),
+                              child: Text(
+                                'Privacy Policy',
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: colorScheme.primary,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 24),
                       ],
@@ -461,6 +498,13 @@ class _PaywallScreenState extends State<PaywallScreen> {
           _isLoading = false;
         });
       }
+    }
+  }
+
+  Future<void> _openUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 }
