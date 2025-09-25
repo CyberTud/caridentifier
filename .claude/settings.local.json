@@ -18,7 +18,8 @@
       "Bash(pkill:*)",
       "Bash(open Runner.xcworkspace)",
       "Bash(git push:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(open /Users/tudor/Documents/dev/carid/build/ios/archive/Runner.xcarchive)"
     ],
     "deny": [],
     "ask": []
