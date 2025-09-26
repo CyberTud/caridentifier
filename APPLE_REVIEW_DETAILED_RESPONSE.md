@@ -1,10 +1,10 @@
 # Detailed Response to App Review - CarPeek In-App Purchase Location
 
-## IMPORTANT: The subscription ONLY appears AFTER the FIRST FREE scan
+## IMPORTANT: The subscription ONLY appears AFTER the FIRST FREE car identification
 
 Dear App Review Team,
 
-The CarPeek Monthly subscription ($4.99/month) is located in the app but requires completing ONE free scan first. Here are the exact steps:
+The CarPeek Monthly subscription ($4.99/month) is located in the app but requires completing ONE free car identification first. Here are the exact steps:
 
 ## Step-by-Step Instructions to Find the In-App Purchase:
 
@@ -12,19 +12,19 @@ The CarPeek Monthly subscription ($4.99/month) is located in the app but require
 - Open CarPeek app
 - Grant camera permission when prompted
 
-### Step 2: Complete Your FIRST Scan (FREE)
-- Tap the blue "Scan VIN" button at the bottom of the home screen
+### Step 2: Complete Your FIRST Car Identification (FREE)
+- On the "Car Identifier" screen, you'll see two options: Camera or Gallery
 - Either:
-  - Point camera at any VIN barcode, OR
-  - Tap "Enter VIN Manually" and type: **1HGBH41JXMN109186**
-- View the vehicle report (this first scan is FREE - no payment required)
+  - Tap the large circular button to take a photo of any car, OR
+  - Switch to "Gallery" mode and select any car photo from your gallery
+- The app will analyze the image and identify the car (this first identification is FREE - no payment required)
+- View the results showing the car's make, model, specs, and other details
 
-### Step 3: Return to Home Screen
-- Tap the back button or home icon
-- You're now on the main screen again
+### Step 3: Return to Main Screen
+- After viewing results, navigate back to the main "Car Identifier" screen
 
-### Step 4: Attempt a SECOND Scan (TRIGGERS PAYWALL)
-- Tap "Scan VIN" button again
+### Step 4: Attempt a SECOND Car Identification (TRIGGERS PAYWALL)
+- Tap the capture button again (camera or gallery)
 - **THE PAYWALL WILL NOW APPEAR** showing:
   - "CarPeek Monthly" subscription
   - Price: $4.99 per month
@@ -33,9 +33,9 @@ The CarPeek Monthly subscription ($4.99/month) is located in the app but require
 
 ## Why You Might Not See the Subscription:
 
-1. **You haven't completed the first free scan** - The app gives one free scan to all new users
-2. **You're stopping at step 2** - The paywall only appears on the SECOND scan attempt
-3. **The subscription is not visible in any menu** - It only appears when trying to scan a second vehicle
+1. **You haven't completed the first free car identification** - The app gives one free analysis to all new users
+2. **You're stopping at step 2** - The paywall only appears on the SECOND identification attempt
+3. **The subscription is not visible in any menu** - It only appears when trying to identify a second car
 
 ## Technical Details:
 
@@ -43,6 +43,7 @@ The CarPeek Monthly subscription ($4.99/month) is located in the app but require
 - Price: $4.99 USD per month
 - The subscription is configured in App Store Connect
 - The paywall is implemented in `lib/presentation/widgets/paywall_screen.dart`
+- The main capture flow is in `lib/presentation/screens/capture_screen.dart`
 
 ## Testing in Sandbox:
 
@@ -53,18 +54,18 @@ The CarPeek Monthly subscription ($4.99/month) is located in the app but require
 ## Business Logic Explanation:
 
 Our app uses a "freemium" model:
-- First scan: Always FREE for new users (to demonstrate value)
-- Second+ scans: Requires monthly subscription
-- This is intentional to let users try before subscribing
+- First car identification: Always FREE for new users (to demonstrate value)
+- Second+ identifications: Requires monthly subscription
+- This is intentional to let users try the AI-powered car recognition before subscribing
 
 ## Summary for Quick Testing:
 
 1. Open app → Grant camera permission
-2. Scan/enter first VIN → View free report
-3. Go back → Try to scan again
+2. Take photo or select from gallery → View free car identification results
+3. Go back → Try to identify another car
 4. **PAYWALL APPEARS HERE** ← This is where you'll find the subscription
 
-The subscription is working correctly. You just need to complete one free scan first before the paywall appears.
+The subscription is working correctly. You just need to complete one free car identification first before the paywall appears.
 
 If you're still unable to locate the subscription after following these steps, please let me know at what step you're experiencing issues, and I can provide additional guidance.
 
@@ -72,11 +73,17 @@ Thank you for your patience.
 
 ## Alternative Testing Method:
 
-If you want to skip the camera scanning:
+If you prefer using gallery images:
 1. Launch app
-2. Tap "Scan VIN"
-3. Tap "Enter VIN Manually"
-4. Enter: **1HGBH41JXMN109186**
-5. View the free report
-6. Go back and repeat steps 2-4
-7. The paywall will appear on this second attempt
+2. Switch to "Gallery" mode
+3. Select any car photo from your device
+4. View the free car identification results
+5. Go back and try to identify another car
+6. The paywall will appear on this second attempt
+
+## Test Images:
+
+You can use any car photo - the app uses AI to identify vehicles from images. For testing, you can:
+- Take a photo of any car on the street
+- Use car images from your photo library
+- Download any car image from the internet

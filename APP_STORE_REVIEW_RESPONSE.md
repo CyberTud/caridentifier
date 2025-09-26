@@ -4,17 +4,18 @@
 
 ### Steps to Locate In-App Purchase:
 
-The monthly subscription ($4.99) appears after the user completes their first free scan. Here are the exact steps:
+The monthly subscription ($4.99) appears after the user completes their first free car identification. Here are the exact steps:
 
 1. **Launch the app**
 2. **Grant camera permission** when prompted
-3. **On the home screen**, tap the "Scan VIN" button (large blue button at bottom)
-4. **Scan any VIN barcode** or enter manually:
-   - For testing, you can use sample VIN: `1HGBH41JXMN109186`
-   - Or tap "Enter VIN Manually" and type any valid 17-character VIN
-5. **View the free vehicle report** (first scan is free)
-6. **Return to home screen** (tap back or home button)
-7. **Tap "Scan VIN" again** to attempt a second scan
+3. **On the "Car Identifier" screen**, you'll see options for Camera or Gallery
+4. **Capture or select a car image**:
+   - Tap the large circular button to take a photo of any car, OR
+   - Switch to "Gallery" mode and select any car photo
+5. **View the free car identification results** (first identification is free)
+   - The app will show the car's make, model, specs, and other details
+6. **Return to the main screen** (navigate back)
+7. **Try to identify another car** (tap capture button again)
 8. **The paywall screen will appear** showing:
    - "CarPeek Monthly" subscription
    - Price: $4.99/month
@@ -22,10 +23,11 @@ The monthly subscription ($4.99) appears after the user completes their first fr
    - Terms of Use and Privacy Policy links at bottom
 
 ### Important Notes:
-- The first scan is always free for new users
-- The paywall only appears on the SECOND scan attempt
+- The first car identification is always free for new users
+- The paywall only appears on the SECOND identification attempt
 - The subscription Product ID is: `com.carpeek.app.monthly`
 - The subscription is configured in App Store Connect under the app's In-App Purchases section
+- The app uses AI-powered image recognition to identify vehicles
 
 ### Sandbox Testing:
 - The subscription works in the sandbox environment
@@ -73,6 +75,6 @@ Thank you for your review.
 ---
 
 ## Quick Testing Summary:
-- **First scan**: FREE (no paywall)
-- **Second scan**: Shows paywall with $4.99/month subscription
-- **Test VIN**: 1HGBH41JXMN109186 (or any 17-character VIN)
+- **First car identification**: FREE (no paywall)
+- **Second car identification**: Shows paywall with $4.99/month subscription
+- **Test method**: Use any car photo (camera or gallery)
