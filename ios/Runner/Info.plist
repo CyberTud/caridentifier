@@ -51,6 +51,13 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>CarPeek can save analyzed vehicle images with detailed information to your photo library.</string>
 
+	<!-- URL Schemes for launching external URLs -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+	</array>
+
 	<!-- Network Configuration -->
 	<key>NSAppTransportSecurity</key>
 	<dict>

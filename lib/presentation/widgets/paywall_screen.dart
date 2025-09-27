@@ -502,9 +502,22 @@ class _PaywallScreenState extends State<PaywallScreen> {
   }
 
   Future<void> _openUrl(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    try {
+      final uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(
+          uri,
+          mode: LaunchMode.externalApplication,
+        );
+      } else {
+        // Fallback to in-app browser if external launch fails
+        await launchUrl(
+          uri,
+          mode: LaunchMode.inAppWebView,
+        );
+      }
+    } catch (e) {
+      debugPrint('Could not launch URL: $url - Error: $e');
     }
   }
 }
