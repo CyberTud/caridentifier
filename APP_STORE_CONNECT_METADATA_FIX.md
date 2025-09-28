@@ -15,7 +15,7 @@ Apple requires the Terms of Use link in BOTH the app binary AND the App Store me
    Add the following text at the end of your app description:
 
    ```
-   Terms of Use: https://carpeek.carrd.co
+   Terms of Use: https://carpeek-termofuse.carrd.co
    Privacy Policy: https://carpeek-policy.carrd.co
    ```
 
@@ -38,7 +38,7 @@ Apple requires the Terms of Use link in BOTH the app binary AND the App Store me
 ✅ Links use both external browser and in-app fallback
 
 ### Verified URLs:
-- Terms of Use: https://carpeek.carrd.co (Status: Working ✅)
+- Terms of Use: https://carpeek-termofuse.carrd.co (Status: Working ✅)
 - Privacy Policy: https://carpeek-policy.carrd.co (Status: Working ✅)
 
 ### Next Steps:

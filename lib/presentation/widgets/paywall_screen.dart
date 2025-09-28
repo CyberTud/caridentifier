@@ -226,7 +226,7 @@ class _PaywallScreenState extends State<PaywallScreen> {
                                 color: Colors.transparent,
                                 child: InkWell(
                                   onTap: () async {
-                                    final url = 'https://carpeek.carrd.co';
+                                    final url = 'https://carpeek-termofuse.carrd.co';
                                     debugPrint('Opening Terms of Use: $url');
                                     await _openUrl(url);
                                   },

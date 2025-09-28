@@ -339,7 +339,7 @@ void _clearAllData() {
                 title: 'Terms of Use',
                 subtitle: 'View our terms and conditions',
                 leadingIcon: Icons.description_rounded,
-                onTap: () => _openUrl('https://carpeek.carrd.co'),
+                onTap: () => _openUrl('https://carpeek-termofuse.carrd.co'),
                 trailing: const Icon(
                   Icons.open_in_new_rounded,
                   size: 20,
