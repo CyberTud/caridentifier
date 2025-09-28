@@ -212,40 +212,71 @@ class _PaywallScreenState extends State<PaywallScreen> {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 12),
-                        // Legal links
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () => _openUrl('https://carpeek.carrd.co'),
-                              child: Text(
-                                'Terms of Use',
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: colorScheme.primary,
-                                  decoration: TextDecoration.underline,
+                        // Legal links - Made more prominent for Apple Review
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: colorScheme.primary.withOpacity(0.05),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  onTap: () async {
+                                    final url = 'https://carpeek.carrd.co';
+                                    debugPrint('Opening Terms of Use: $url');
+                                    await _openUrl(url);
+                                  },
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    child: Text(
+                                      'Terms of Use',
+                                      style: theme.textTheme.bodyMedium?.copyWith(
+                                        color: colorScheme.primary,
+                                        fontWeight: FontWeight.w600,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: Text(
-                                '•',
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: colorScheme.onSurface.withOpacity(0.5),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 12),
+                                child: Text(
+                                  '•',
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color: colorScheme.onSurface.withOpacity(0.5),
+                                  ),
                                 ),
                               ),
-                            ),
-                            GestureDetector(
-                              onTap: () => _openUrl('https://carpeek-policy.carrd.co'),
-                              child: Text(
-                                'Privacy Policy',
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: colorScheme.primary,
-                                  decoration: TextDecoration.underline,
+                              Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  onTap: () async {
+                                    final url = 'https://carpeek-policy.carrd.co';
+                                    debugPrint('Opening Privacy Policy: $url');
+                                    await _openUrl(url);
+                                  },
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    child: Text(
+                                      'Privacy Policy',
+                                      style: theme.textTheme.bodyMedium?.copyWith(
+                                        color: colorScheme.primary,
+                                        fontWeight: FontWeight.w600,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 24),
                       ],
@@ -504,20 +535,35 @@ class _PaywallScreenState extends State<PaywallScreen> {
   Future<void> _openUrl(String url) async {
     try {
       final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
+      debugPrint('Attempting to launch URL: $url');
+
+      // Try external browser first
+      final launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+
+      if (!launched) {
+        debugPrint('External launch failed, trying in-app browser');
+        // Try in-app browser as fallback
         await launchUrl(
           uri,
-          mode: LaunchMode.externalApplication,
-        );
-      } else {
-        // Fallback to in-app browser if external launch fails
-        await launchUrl(
-          uri,
-          mode: LaunchMode.inAppWebView,
+          mode: LaunchMode.inAppBrowserView,
         );
       }
+
+      debugPrint('Successfully launched URL: $url');
     } catch (e) {
-      debugPrint('Could not launch URL: $url - Error: $e');
+      debugPrint('ERROR: Could not launch URL: $url - Error: $e');
+      // Show error to user
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Could not open link. Please visit: $url'),
+            duration: const Duration(seconds: 5),
+          ),
+        );
+      }
     }
   }
 }
