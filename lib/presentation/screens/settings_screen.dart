@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../application/providers/settings_provider.dart';
 import '../../application/providers/repository_providers.dart';
 import '../widgets/app_navigation_bar.dart';
@@ -170,6 +171,41 @@ void _clearAllData() {
     );
   }
 
+  Future<void> _openUrl(String url) async {
+    try {
+      final uri = Uri.parse(url);
+      debugPrint('Attempting to launch URL: $url');
+
+      // Try external browser first
+      final launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+
+      if (!launched) {
+        debugPrint('External launch failed, trying in-app browser');
+        // Try in-app browser as fallback
+        await launchUrl(
+          uri,
+          mode: LaunchMode.inAppBrowserView,
+        );
+      }
+
+      debugPrint('Successfully launched URL: $url');
+    } catch (e) {
+      debugPrint('ERROR: Could not launch URL: $url - Error: $e');
+      // Show error to user
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Could not open link. Please visit: $url'),
+            duration: const Duration(seconds: 5),
+          ),
+        );
+      }
+    }
+  }
+
   String _getThemeModeText(ThemeMode mode) {
     switch (mode) {
       case ThemeMode.system:
@@ -293,6 +329,33 @@ void _clearAllData() {
                 ),
               ],
             ),
+          ),
+          const SizedBox(height: 24),
+          // Legal Section
+          SettingsSection(
+            title: 'Legal',
+            children: [
+              SettingsTile(
+                title: 'Terms of Use',
+                subtitle: 'View our terms and conditions',
+                leadingIcon: Icons.description_rounded,
+                onTap: () => _openUrl('https://carpeek.carrd.co'),
+                trailing: const Icon(
+                  Icons.open_in_new_rounded,
+                  size: 20,
+                ),
+              ),
+              SettingsTile(
+                title: 'Privacy Policy',
+                subtitle: 'Learn how we protect your data',
+                leadingIcon: Icons.lock_rounded,
+                onTap: () => _openUrl('https://carpeek-policy.carrd.co'),
+                trailing: const Icon(
+                  Icons.open_in_new_rounded,
+                  size: 20,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 24),
           // About Section
